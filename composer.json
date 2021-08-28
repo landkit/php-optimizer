@@ -1,0 +1,23 @@
+{
+    "name": "landkit/php-optimizer",
+    "type": "library",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "homepage": "https://github.com/landkit/php-optimizer",
+    "authors": [
+        {
+            "name": "Land Kit",
+            "email": "landkit.packages@gmail.com",
+            "homepage": "https://github.com/landkit"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LandKit\\Optimizer\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.0|^8.0",
+        "ext-simplexml": "*"
+    }
+}

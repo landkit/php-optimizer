@@ -1,0 +1,77 @@
+use LandKit\Optimizer\Optimizer;
+
+class Seo
+{
+    /**
+     * @var Optimizer
+     */
+    private $optimizer;
+
+    /**
+     * Seo constructor.
+     *
+     * @param string $type
+     */
+    public function __construct(string $type = 'article')
+    {
+        $this->optimizer = new Optimizer();
+        $this->optimizer->openGraph(
+            '', // Name of website
+            $type, // Type of content
+            '' // Lang
+        )->twitterCard(
+            '', // @username for the content creator / author.
+            '', // @username for the website used in the card footer.
+            '', // Domain of website
+            '' // “summary”, “summary_large_image”, “app”, or “player”
+        )->publisher(
+            '', // Page identifier
+            '' // Author identifier
+        )->facebook(
+            '', // APP ID
+            [] // Administrator ids. Use this parameter only if you dont have appId
+        );
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name)
+    {
+        return $this->optimizer->data()->$name;
+    }
+
+    /**
+     * @return Optimizer
+     */
+    public function optimizer(): Optimizer
+    {
+        return $this->optimizer;
+    }
+
+    /**
+     * @param string $title
+     * @param string $description
+     * @param string $url
+     * @param string $image
+     * @return stdClass|null
+     */
+    public function data(string $title = '', string $description = '', string $url = '', string $image = '')
+    {
+        return $this->optimizer->data($title, $description, $url, $image);
+    }
+
+    /**
+     * @param string $title
+     * @param string $description
+     * @param string $url
+     * @param string $image
+     * @param bool $follow
+     * @return string
+     */
+    public function render(string $title, string $description, string $url, string $image, bool $follow = true): string
+    {
+        return $this->optimizer->optimize($title, $description, $url, $image, $follow)->build();
+    }
+}
